@@ -31,6 +31,16 @@ public class Player : Actor
     #region Helper Methods
     void UpdateMove()
     {
+        float v = Input.GetAxis("Vertical");
+        float h = Input.GetAxis("Horizontal");
+
+        Vector3 keyMoveVector = new Vector3(h, 0.0f, v);
+        if(keyMoveVector != Vector3.zero)
+        {
+            transform.forward = keyMoveVector;
+            transform.position += keyMoveVector * moveSpeed * Time.deltaTime;
+        }
+
         Vector2 inputVector = InGameSceneManager.instance.JoyStick.GetInputVector();
         if (inputVector == Vector2.zero)
             return;
