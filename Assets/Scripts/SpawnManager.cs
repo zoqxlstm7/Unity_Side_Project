@@ -77,6 +77,7 @@ public class SpawnManager : MonoBehaviour
         int randomIndex = Random.Range(0, enemyCache.Length);
 
         Enemy enemy = InGameSceneManager.instance.EnemyManager.Generate(enemyCache[randomIndex].filePath, appearPos);
+        enemy.checkRemainEnemyHandler = CheckRemainEnemy;
         enemy.SetHealth(waveCount);
     }
 
@@ -95,6 +96,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnWithDelay()
     {
+        Debug.Log(waveCount);
         yield return new WaitForSeconds(2.0f);
         spawnCount = initialSpawnCount + waveCount;
         remainSpawnCount = spawnCount;

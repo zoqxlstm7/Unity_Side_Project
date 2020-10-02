@@ -30,14 +30,21 @@ public class Projectile : MonoBehaviour
     #region Unity Methods
     private void Update()
     {
-        CheckRemove();
-
         UpdateRotate();
+
+        if (!isMove)
+            return;
+
+        CheckRemove();
+        
         UpdateMove();
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!isMove)
+            return;
+
         if (isReturnProjectile)
         {
             if (isReturn)
@@ -69,6 +76,9 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (!isMove)
+            return;
+
         if(isReturn)
         {
             if (other.gameObject.layer == owner.gameObject.layer)
@@ -82,9 +92,6 @@ public class Projectile : MonoBehaviour
     #region Helper Methods
     public void UpdateMove()
     {
-        if (!isMove)
-            return;
-
         if (isReturnProjectile)
             dir = (target.position - transform.position).normalized;
         else
@@ -104,6 +111,8 @@ public class Projectile : MonoBehaviour
 
         isReturn = false;
         isMove = false;
+
+        transform.localScale = Vector3.one;
 
         InGameSceneManager.instance.ProjectileManager.Remove(FilePath, gameObject);
     }

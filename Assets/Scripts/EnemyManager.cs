@@ -63,7 +63,6 @@ public class EnemyManager : MonoBehaviour
         {
             Enemy enemy = go.GetComponent<Enemy>();
             enemy.FilePath = filePath;
-            enemy.checkRemainEnemyHandler += InGameSceneManager.instance.SpawnManager.CheckRemainEnemy;
 
             return enemy;
         }

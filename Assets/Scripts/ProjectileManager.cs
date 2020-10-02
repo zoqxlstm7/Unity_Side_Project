@@ -14,6 +14,8 @@ public class ProjectileManager : MonoBehaviour
     private void Start()
     {
         PrepareCache();
+
+        InGameSceneManager.instance.Player.SetProjectile();
     }
     #endregion Unity Methods
 

@@ -11,18 +11,29 @@ public class Player : Actor
     [SerializeField] float moveSpeed = 5.0f;
     [SerializeField] float attackRange = 5.0f;
     [SerializeField] float attackSpeed = 0.5f;
+    [SerializeField] int projectileCount = 3;
+    public int calcProjectileCount = 0;
 
     [SerializeField] LayerMask targetMask;
     [SerializeField] LayerMask unWalkableMask;
     [SerializeField] Transform fireTransform = null;
+    [SerializeField] float aroundDistance = 1.5f;
 
     Transform target = null;
     float distanceToTarget = 0.0f;
 
     float startAttackTime = 0.0f;
+
+    List<Projectile> aroundProjectileList = new List<Projectile>();
     #endregion Variables
 
     #region Actor Methods
+    public override void InitializeActor()
+    {
+        base.InitializeActor();
+
+        calcProjectileCount = projectileCount;
+    }
     public override void UpdateActor()
     {
         if (IsDead)
@@ -32,6 +43,7 @@ public class Player : Actor
         SearchEnemy();
 
         CheckAttaack();
+        AroundProjectileRotate();
     }
 
     public override void OnDead()
@@ -119,10 +131,80 @@ public class Player : Actor
 
         if(Time.time - startAttackTime > attackSpeed)
         {
+            if (calcProjectileCount <= 0)
+            {
+                calcProjectileCount = projectileCount;
+                StartCoroutine(LaunchAroundProjectile());
+                startAttackTime = Time.time;
+                return;
+            }
+
+            calcProjectileCount--;
+
             Projectile projectile = InGameSceneManager.instance.ProjectileManager.Generate(PROJECTILE_FILE_PATH, fireTransform.position);
             projectile.Fire(this, target, targetMask);
 
             startAttackTime = Time.time;
+        }
+    }    
+
+    IEnumerator LaunchAroundProjectile()
+    {
+        float intervalTime = 0.2f;
+        float launchTime = Time.time;
+
+        while (aroundProjectileList.Count > 0)
+        {
+            if (target == null)
+                break;
+
+            if(Time.time - launchTime > intervalTime)
+            {
+                aroundProjectileList[0].Fire(this, target, targetMask);
+                aroundProjectileList.RemoveAt(0);
+                launchTime = Time.time;
+            }
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(intervalTime);
+        SetProjectile();
+    }
+
+    public void SetProjectile()
+    {
+        for (int i = 0; i < aroundProjectileList.Count; i++)
+        {
+            InGameSceneManager.instance.ProjectileManager.Remove(aroundProjectileList[i].FilePath, aroundProjectileList[i].gameObject);
+        }
+        aroundProjectileList.Clear();
+
+        Vector3 startPos = fireTransform.position;
+        for (int i = 0; i < projectileCount; i++)
+        {
+            float angle = i * (360.0f / projectileCount);
+            Vector3 dir = Quaternion.Euler(0.0f, angle, 0.0f) * Vector3.forward;
+            Vector3 position = startPos + dir * aroundDistance;
+
+            Projectile projectile = InGameSceneManager.instance.ProjectileManager.Generate(PROJECTILE_FILE_PATH, position);
+            aroundProjectileList.Add(projectile);
+        }
+    }
+
+    void AroundProjectileRotate()
+    {
+        for (int i = 0; i < aroundProjectileList.Count; i++)
+        {
+            Vector3 startPos = fireTransform.position;
+
+            float angle = i * (360.0f / aroundProjectileList.Count);
+            Vector3 dir = Quaternion.Euler(0.0f, angle, 0.0f) * Vector3.forward;
+            Vector3 position = startPos + dir * aroundDistance;
+            aroundProjectileList[i].transform.position = position;
+
+            //aroundProjectileList[i].transform.RotateAround(transform.position, Vector3.up, 100.0f * Time.deltaTime);
+            //aroundProjectileList[i].transform.LookAt(transform);
         }
     }
     #endregion Helper Methods
