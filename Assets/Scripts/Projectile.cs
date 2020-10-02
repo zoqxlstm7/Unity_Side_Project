@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] float moveSpeed = 10.0f;
     [SerializeField] float damage = 3.0f;
     [SerializeField] float rotateAngle = 10000.0f;
+    [SerializeField] float sizeScale = 1.5f;
 
     Actor owner = null;
     Transform target = null;
@@ -24,6 +25,8 @@ public class Projectile : MonoBehaviour
     #region Unity Methods
     private void Update()
     {
+        CheckRemove();
+
         UpdateRotate();
         UpdateMove();
     }
@@ -45,6 +48,17 @@ public class Projectile : MonoBehaviour
             transform.localScale = Vector3.one;
             target = owner.transform;
             isReturn = true;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(isReturn)
+        {
+            if (other.gameObject.layer == owner.gameObject.layer)
+            {
+                Remove();
+            }
         }
     }
     #endregion Unity Methods
@@ -74,6 +88,12 @@ public class Projectile : MonoBehaviour
 
         InGameSceneManager.instance.ProjectileManager.Remove(FilePath, gameObject);
     }
+
+    void CheckRemove()
+    {
+        if (target.GetComponent<IDamageable>().IsDead)
+            Remove();
+    }
     #endregion Helper Methods
 
     #region Other Methods
@@ -83,7 +103,7 @@ public class Projectile : MonoBehaviour
         this.target = target;
         targetLayer = (int)Mathf.Log(targetMask.value, 2);
 
-        transform.localScale = Vector3.one * 2f;
+        transform.localScale = Vector3.one * sizeScale;
         isMove = true;
     }
     #endregion Other Methods

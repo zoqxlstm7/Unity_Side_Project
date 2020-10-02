@@ -26,7 +26,16 @@ public class InGameSceneManager : MonoBehaviour
     [SerializeField] JoyStick joyStick;
     public JoyStick JoyStick => joyStick;
 
+    [SerializeField] MapGenerator mapGenerator;
+    public MapGenerator MapGenerator => mapGenerator;
+
     [SerializeField] ProjectileManager projectileManager;
     public ProjectileManager ProjectileManager => projectileManager;
+
+    [SerializeField] EnemyManager enemyManager;
+    public EnemyManager EnemyManager => enemyManager;
+
+    [SerializeField] SpawnManager spawnManager;
+    public SpawnManager SpawnManager => spawnManager;
     #endregion Variables
 }

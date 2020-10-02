@@ -14,9 +14,11 @@ public class MapGenerator : MonoBehaviour
 
     [SerializeField] float maskOutlineLength = 2.0f;
     [SerializeField] float maskHeight = 2.0f;
+
+    public List<Transform> tileList = new List<Transform>();
     #endregion Variables
 
-    private void Start()
+    private void Awake()
     {
         GenerateMap();
     }
@@ -26,6 +28,7 @@ public class MapGenerator : MonoBehaviour
         string holderName = "Generated Map";
         if (transform.Find(holderName))
         {
+            tileList.Clear();
             DestroyImmediate(transform.Find(holderName).gameObject);
         }
 
@@ -40,6 +43,8 @@ public class MapGenerator : MonoBehaviour
                 Transform newTile = Instantiate(tilePrefab, tilePosition, Quaternion.Euler(Vector3.right * 90.0f)) as Transform;
                 newTile.localScale = Vector3.one * (1 - outlinePercent);
                 newTile.SetParent(mapHolder);
+
+                tileList.Add(newTile);
             }
         }
 

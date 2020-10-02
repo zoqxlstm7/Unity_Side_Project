@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class ProjectileManager : MonoBehaviour
 {
+    #region Variablse
     [SerializeField] CacheData[] cacheDatas;
 
     Dictionary<string, GameObject> fileCaches = new Dictionary<string, GameObject>();
+    #endregion Variablse
 
+    #region Unity Methods
     private void Start()
     {
         PrepareCache();
     }
+    #endregion Unity Methods
 
+    #region Other Methods
     void PrepareCache()
     {
         for (int i = 0; i < cacheDatas.Length; i++)
@@ -68,4 +73,5 @@ public class ProjectileManager : MonoBehaviour
     {
         InGameSceneManager.instance.CacheSystem.Restore(filePath, gameObject);
     }
+    #endregion Other Methods
 }

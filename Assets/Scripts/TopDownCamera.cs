@@ -25,6 +25,7 @@ public class TopDownCamera : MonoBehaviour
 
         Vector3 worldPosition = Vector3.up * height;
         Vector3 finalCameraPosition = worldPosition + target.position;
+        finalCameraPosition.x = transform.position.x;
 
         transform.position = finalCameraPosition;
     }

@@ -10,6 +10,11 @@ public class Actor : MonoBehaviour, IDamageable
     #endregion Variables
 
     #region Unity Methods
+    private void OnEnable()
+    {
+        currentHealth = maxHealth;
+    }
+
     private void Start()
     {
         InitializeActor();
@@ -24,7 +29,7 @@ public class Actor : MonoBehaviour, IDamageable
     #region Other Methods
     public virtual void InitializeActor()
     {
-        currentHealth = maxHealth;
+        
     }
 
     public virtual void UpdateActor()

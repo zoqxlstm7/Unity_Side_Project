@@ -23,6 +23,14 @@ public class Enemy : Actor, IAttackable
     float startFindTime = 0.0f;
     #endregion Variables
 
+    #region Property
+    public string FilePath { get; set; }
+    #endregion Property
+
+    #region Handler
+    public System.Action checkRemainEnemyHandler;
+    #endregion Handler
+
     #region Actor Methods
     public override void InitializeActor()
     {
@@ -37,6 +45,15 @@ public class Enemy : Actor, IAttackable
     public override void UpdateActor()
     {
         UpdateMove();
+    }
+
+    public override void OnDead()
+    {
+        base.OnDead();
+
+        checkRemainEnemyHandler?.Invoke();
+
+        InGameSceneManager.instance.EnemyManager.Remove(FilePath, gameObject);
     }
     #endregion Actor Methods
 
@@ -68,6 +85,12 @@ public class Enemy : Actor, IAttackable
         }
 
         return true;
+    }
+
+    public void SetHealth(int factor)
+    {
+        maxHealth += factor;
+        currentHealth = maxHealth;
     }
     #endregion Helper Methods
 
