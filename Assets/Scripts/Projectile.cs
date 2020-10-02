@@ -42,6 +42,7 @@ public class Projectile : MonoBehaviour
         {
             other.GetComponent<IDamageable>().TakeDamage(damage, null);
 
+            transform.localScale = Vector3.one;
             target = owner.transform;
             isReturn = true;
         }
@@ -82,6 +83,7 @@ public class Projectile : MonoBehaviour
         this.target = target;
         targetLayer = (int)Mathf.Log(targetMask.value, 2);
 
+        transform.localScale = Vector3.one * 2f;
         isMove = true;
     }
     #endregion Other Methods

@@ -140,6 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   damage: 3
+  rotateAngle: 10000
 --- !u!54 &4104121686854045431
 Rigidbody:
   m_ObjectHideFlags: 0
