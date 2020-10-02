@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mon_Pumpkin
+  m_Name: Color Picker
   m_Shader: {fileID: 4800000, guid: ef3178aabaab247448c46c904e37bf43, type: 3}
   m_ShaderKeywords: TCP2_REFLECTIONS_FRESNEL TCP2_RIM_LIGHTING_LIGHTMASK TCP2_UV_NORMALS_FULL
     _EMISSION
@@ -34,7 +34,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 7e307049e901d5c49abf1c1bb7ea6230, type: 3}
+        m_Texture: {fileID: 2800000, guid: 375bade2533bd674f944758f95a3afd5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -42,7 +42,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 7e307049e901d5c49abf1c1bb7ea6230, type: 3}
+        m_Texture: {fileID: 2800000, guid: 375bade2533bd674f944758f95a3afd5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
