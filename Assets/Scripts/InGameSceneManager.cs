@@ -17,6 +17,11 @@ public class InGameSceneManager : MonoBehaviour
     #endregion Singleton
 
     #region Variables
+    public int waveCount = 1;
+    public int score = 0;
+
+    public bool isGameOver = false;
+
     [SerializeField] Player player;
     public Player Player => player;
 
@@ -38,4 +43,15 @@ public class InGameSceneManager : MonoBehaviour
     [SerializeField] SpawnManager spawnManager;
     public SpawnManager SpawnManager => spawnManager;
     #endregion Variables
+
+    #region Unity Methods
+    private void Update()
+    {
+        if(isGameOver)
+        {
+            PanelManager.GetPanel<GameOverPanel>().Show();
+            isGameOver = false;
+        }
+    }
+    #endregion Unity Methods
 }

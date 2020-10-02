@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  damage: 10
+  damage: 100
   rotateAngle: 0
   sizeScale: 2
   removeMask:

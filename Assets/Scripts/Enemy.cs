@@ -14,6 +14,8 @@ public class Enemy : Actor
 
     [SerializeField] LayerMask unWalkableMask;
 
+    [SerializeField] int score = 10;
+
     protected Transform target = null;
     protected Vector3 dir = Vector3.zero;
 
@@ -30,6 +32,16 @@ public class Enemy : Actor
     #region Handler
     public System.Action checkRemainEnemyHandler;
     #endregion Handler
+
+    #region Unity Methods
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == target.gameObject.layer)
+        {
+            other.GetComponent<IDamageable>().TakeDamage(100, null);
+        }
+    }
+    #endregion Unity Methods
 
     #region Actor Methods
     public override void InitializeActor()
@@ -52,6 +64,8 @@ public class Enemy : Actor
         base.OnDead();
 
         checkRemainEnemyHandler?.Invoke();
+        InGameSceneManager.instance.score += score;
+        PanelManager.GetPanel<InGameInfoPanel>().SetScore();
 
         InGameSceneManager.instance.EnemyManager.Remove(FilePath, gameObject);
     }

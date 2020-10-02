@@ -25,10 +25,20 @@ public class Player : Actor
     #region Actor Methods
     public override void UpdateActor()
     {
+        if (IsDead)
+            return;
+
         UpdateMove();
         SearchEnemy();
 
         CheckAttaack();
+    }
+
+    public override void OnDead()
+    {
+        base.OnDead();
+
+        InGameSceneManager.instance.isGameOver = true;
     }
     #endregion Actor Methods
 

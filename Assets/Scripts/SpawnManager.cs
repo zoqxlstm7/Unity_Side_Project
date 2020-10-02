@@ -19,6 +19,8 @@ public class SpawnManager : MonoBehaviour
     #region Unity Methods
     private void Start()
     {
+        waveCount = InGameSceneManager.instance.waveCount;
+
         spawnCount = initialSpawnCount;
         remainSpawnCount = initialSpawnCount;
     }
@@ -84,7 +86,9 @@ public class SpawnManager : MonoBehaviour
 
         if(remainSpawnCount <= 0)
         {
-            waveCount++;
+            waveCount = ++InGameSceneManager.instance.waveCount;
+            PanelManager.GetPanel<InGameInfoPanel>().SetWaveCount();
+
             StartCoroutine(SpawnWithDelay());
         }
     }
