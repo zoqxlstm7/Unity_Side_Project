@@ -9,6 +9,9 @@ public class Projectile : MonoBehaviour
     [SerializeField] float damage = 3.0f;
     [SerializeField] float rotateAngle = 10000.0f;
     [SerializeField] float sizeScale = 1.5f;
+    [SerializeField] LayerMask removeMask;
+
+    Vector3 dir = Vector3.zero;
 
     Actor owner = null;
     Transform target = null;
@@ -16,6 +19,8 @@ public class Projectile : MonoBehaviour
 
     bool isMove = false;
     bool isReturn = false;
+
+    bool isReturnProjectile = false;
     #endregion Variables
 
     #region Property
@@ -33,21 +38,32 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(isReturn)
+        if (isReturnProjectile)
         {
-            if(other.gameObject.layer == owner.gameObject.layer)
+            if (isReturn)
             {
-                Remove();
+                if (other.gameObject.layer == owner.gameObject.layer)
+                {
+                    Remove();
+                }
+            }
+
+            if (other.gameObject.layer == targetLayer)
+            {
+                other.GetComponent<IDamageable>().TakeDamage(damage, null);
+
+                transform.localScale = Vector3.one;
+                target = owner.transform;
+                isReturn = true;
             }
         }
-
-        if (other.gameObject.layer == targetLayer)
+        else
         {
-            other.GetComponent<IDamageable>().TakeDamage(damage, null);
-
-            transform.localScale = Vector3.one;
-            target = owner.transform;
-            isReturn = true;
+            if (other.gameObject.layer == targetLayer)
+            {
+                other.GetComponent<IDamageable>().TakeDamage(damage, null);
+                Remove();
+            }
         }
     }
 
@@ -64,12 +80,15 @@ public class Projectile : MonoBehaviour
     #endregion Unity Methods
 
     #region Helper Methods
-    void UpdateMove()
+    public void UpdateMove()
     {
         if (!isMove)
             return;
 
-        Vector3 dir = (target.position - transform.position).normalized;
+        if (isReturnProjectile)
+            dir = (target.position - transform.position).normalized;
+        else
+            transform.forward = dir;
 
         transform.position += dir * moveSpeed * Time.deltaTime;
     }
@@ -93,17 +112,28 @@ public class Projectile : MonoBehaviour
     {
         if (target.GetComponent<IDamageable>().IsDead)
             Remove();
+
+        Vector3 moveVector = dir * moveSpeed * Time.deltaTime;
+        if (Physics.Linecast(transform.position, transform.position + moveVector, removeMask))
+        {
+            Remove();
+        }
     }
     #endregion Helper Methods
 
     #region Other Methods
-    public void Fire(Actor owner, Transform target, LayerMask targetMask)
+    public void Fire(Actor owner, Transform target, LayerMask targetMask, bool isReturnProjectile = true)
     {
         this.owner = owner;
         this.target = target;
         targetLayer = (int)Mathf.Log(targetMask.value, 2);
+        this.isReturnProjectile = isReturnProjectile;
 
-        transform.localScale = Vector3.one * sizeScale;
+        dir = (target.position - transform.position).normalized;
+
+        if (isReturnProjectile)
+            transform.localScale = Vector3.one * sizeScale;
+
         isMove = true;
     }
     #endregion Other Methods

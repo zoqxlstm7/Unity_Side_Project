@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class EnemyConstanceName
-{
-    public string enemyFilePath;
-}
-
 public class SpawnManager : MonoBehaviour
 {
     #region Variables
-    [SerializeField] EnemyConstanceName[] enemyConstanceNames;
-
     [SerializeField] int initialSpawnCount = 5;
     [SerializeField] float betweenSpawnTime = 1.0f;
 
@@ -79,9 +71,10 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnEnemy(Vector3 appearPos)
     {
-        int randomIndex = Random.Range(0, enemyConstanceNames.Length);
+        CacheData[] enemyCache = InGameSceneManager.instance.EnemyManager.CacheDatas;
+        int randomIndex = Random.Range(0, enemyCache.Length);
 
-        Enemy enemy = InGameSceneManager.instance.EnemyManager.Generate(enemyConstanceNames[randomIndex].enemyFilePath, appearPos);
+        Enemy enemy = InGameSceneManager.instance.EnemyManager.Generate(enemyCache[randomIndex].filePath, appearPos);
         enemy.SetHealth(waveCount);
     }
 

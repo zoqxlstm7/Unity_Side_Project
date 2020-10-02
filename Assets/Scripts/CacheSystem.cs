@@ -12,7 +12,7 @@ public class CacheData
 public class CacheSystem
 {
     #region Variables
-    public const int DEFAUT_CACHE_COUNT = 30;
+    public const int DEFAUT_CACHE_COUNT = 10;
 
     Dictionary<string, Queue<GameObject>> caches = new Dictionary<string, Queue<GameObject>>();
     #endregion Variables

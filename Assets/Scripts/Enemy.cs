@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Timers;
 using UnityEngine;
 
-public class Enemy : Actor, IAttackable
+public class Enemy : Actor
 {
     #region Variables
     [SerializeField] float minMoveSpeed = 1.0f;
@@ -14,10 +14,10 @@ public class Enemy : Actor, IAttackable
 
     [SerializeField] LayerMask unWalkableMask;
 
-    Transform target = null;
-    Vector3 dir = Vector3.zero;
+    protected Transform target = null;
+    protected Vector3 dir = Vector3.zero;
 
-    float moveSpeed = 5.0f;
+    protected float moveSpeed = 5.0f;
     float findInterval = 5.0f;
 
     float startFindTime = 0.0f;
@@ -58,7 +58,7 @@ public class Enemy : Actor, IAttackable
     #endregion Actor Methods
 
     #region Helper Methods
-    void UpdateMove()
+    public void UpdateMove()
     {
         if (Time.time - startFindTime > findInterval)
         {
@@ -93,12 +93,4 @@ public class Enemy : Actor, IAttackable
         currentHealth = maxHealth;
     }
     #endregion Helper Methods
-
-    #region IAttackable Interface
-    public AttackBehaviour CurrentAttackBehaviour { get; set; }
-
-    public void OnExecuteAttack(int animationIndex)
-    {
-    }
-    #endregion IAttackable Interface
 }

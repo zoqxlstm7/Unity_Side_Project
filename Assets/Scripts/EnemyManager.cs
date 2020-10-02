@@ -10,6 +10,10 @@ public class EnemyManager : MonoBehaviour
     Dictionary<string, GameObject> fileCaches = new Dictionary<string, GameObject>();
     #endregion Variables
 
+    #region Property
+    public CacheData[] CacheDatas => cacheDatas;
+    #endregion Property
+
     #region Unity Methods
     private void Start()
     {

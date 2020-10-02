@@ -6,6 +6,8 @@ using UnityEngine;
 public class Player : Actor
 {
     #region Variables
+    readonly string PROJECTILE_FILE_PATH = "Projectile/Projectile_HalfMoon";
+
     [SerializeField] float moveSpeed = 5.0f;
     [SerializeField] float attackRange = 5.0f;
     [SerializeField] float attackSpeed = 0.5f;
@@ -107,8 +109,7 @@ public class Player : Actor
 
         if(Time.time - startAttackTime > attackSpeed)
         {
-            string filePath = "Projectile/Projectile";
-            Projectile projectile = InGameSceneManager.instance.ProjectileManager.Generate(filePath, fireTransform.position);
+            Projectile projectile = InGameSceneManager.instance.ProjectileManager.Generate(PROJECTILE_FILE_PATH, fireTransform.position);
             projectile.Fire(this, target, targetMask);
 
             startAttackTime = Time.time;
