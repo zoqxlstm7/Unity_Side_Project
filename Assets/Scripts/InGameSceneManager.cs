@@ -17,6 +17,9 @@ public class InGameSceneManager : MonoBehaviour
     #endregion Singleton
 
     #region Variables
+    [SerializeField] Player player;
+    public Player Player => player;
+
     CacheSystem cacheSystem = new CacheSystem();
     public CacheSystem CacheSystem => cacheSystem;
 

@@ -161,6 +161,9 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 512
+  unWalkableMask:
+    serializedVersion: 2
+    m_Bits: 1024
   fireTransform: {fileID: 5517446461518096187}
 --- !u!1 &5517446461007850133
 GameObject:

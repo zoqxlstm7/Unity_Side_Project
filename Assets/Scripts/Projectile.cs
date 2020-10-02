@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     #region Variables
     [SerializeField] float moveSpeed = 10.0f;
     [SerializeField] float damage = 3.0f;
+    [SerializeField] float rotateAngle = 10000.0f;
 
     Actor owner = null;
     Transform target = null;
@@ -23,6 +24,7 @@ public class Projectile : MonoBehaviour
     #region Unity Methods
     private void Update()
     {
+        UpdateRotate();
         UpdateMove();
     }
 
@@ -53,9 +55,13 @@ public class Projectile : MonoBehaviour
             return;
 
         Vector3 dir = (target.position - transform.position).normalized;
-        transform.forward = dir;
 
         transform.position += dir * moveSpeed * Time.deltaTime;
+    }
+
+    void UpdateRotate()
+    {
+        transform.Rotate(Vector3.up * rotateAngle * Time.deltaTime);
     }
 
     void Remove()

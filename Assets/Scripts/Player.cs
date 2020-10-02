@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Timeline;
 using UnityEngine;
 
 public class Player : Actor
@@ -10,6 +11,7 @@ public class Player : Actor
     [SerializeField] float attackSpeed = 0.5f;
 
     [SerializeField] LayerMask targetMask;
+    [SerializeField] LayerMask unWalkableMask;
     [SerializeField] Transform fireTransform = null;
 
     Transform target = null;
@@ -31,24 +33,46 @@ public class Player : Actor
     #region Helper Methods
     void UpdateMove()
     {
-        float v = Input.GetAxis("Vertical");
-        float h = Input.GetAxis("Horizontal");
-
-        Vector3 keyMoveVector = new Vector3(h, 0.0f, v);
-        if(keyMoveVector != Vector3.zero)
-        {
-            transform.forward = keyMoveVector;
-            transform.position += keyMoveVector * moveSpeed * Time.deltaTime;
-        }
+        InputMove();
 
         Vector2 inputVector = InGameSceneManager.instance.JoyStick.GetInputVector();
         if (inputVector == Vector2.zero)
             return;
 
         Vector3 moveVector = new Vector3(inputVector.x, 0.0f, inputVector.y);
+        moveVector = moveVector * moveSpeed * Time.deltaTime;
+        if (CheckUnWalkable(moveVector))
+        {
+            transform.forward = moveVector;
+            transform.position += moveVector;
+        }
+    }
 
-        transform.forward = moveVector;
-        transform.position += moveVector * moveSpeed * Time.deltaTime;
+    void InputMove()
+    {
+        float v = Input.GetAxis("Vertical");
+        float h = Input.GetAxis("Horizontal");
+
+        Vector3 moveVector = new Vector3(h, 0.0f, v);
+        if (moveVector != Vector3.zero)
+        {
+            moveVector = moveVector * moveSpeed * Time.deltaTime;
+            if (CheckUnWalkable(moveVector))
+            {
+                transform.forward = moveVector;
+                transform.position += moveVector;
+            }
+        }
+    }
+
+    bool CheckUnWalkable(Vector3 moveVector)
+    {
+        if(Physics.Linecast(transform.position, transform.position + moveVector, unWalkableMask))
+        {
+            return false;
+        }
+
+        return true;
     }
 
     void SearchEnemy()
