@@ -36797,6 +36797,8 @@ MonoBehaviour:
     cacheCount: 0
   - filePath: Enemy/Enemy_Hedgehog
     cacheCount: 0
+  - filePath: Enemy/Enemy_Cat
+    cacheCount: 0
 --- !u!4 &899173452
 Transform:
   m_ObjectHideFlags: 0
