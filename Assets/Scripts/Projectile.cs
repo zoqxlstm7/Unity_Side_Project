@@ -5,22 +5,19 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     #region Variables
-    [SerializeField] float moveSpeed = 10.0f;
-    [SerializeField] float damage = 3.0f;
-    [SerializeField] float rotateAngle = 10000.0f;
-    [SerializeField] float sizeScale = 1.5f;
-    [SerializeField] LayerMask removeMask;
+    [SerializeField] protected float moveSpeed = 10.0f;
+    [SerializeField] protected float damage = 3.0f;
 
-    Vector3 dir = Vector3.zero;
+    [SerializeField] protected LayerMask removeMask;
 
-    Actor owner = null;
-    Transform target = null;
-    int targetLayer = -1;
+    public Vector3 dir = Vector3.zero;
 
-    bool isMove = false;
-    bool isReturn = false;
+    protected Actor owner = null;
+    protected Transform target = null;
+    protected int targetLayer = -1;
+    protected LayerMask targetMask;
 
-    bool isReturnProjectile = false;
+    protected bool isMove = false;
     #endregion Variables
 
     #region Property
@@ -28,120 +25,64 @@ public class Projectile : MonoBehaviour
     #endregion Property
 
     #region Unity Methods
+    private void OnEnable()
+    {
+        ResetProjectile();
+    }
     private void Update()
     {
-        UpdateRotate();
-
-        if (!isMove)
-            return;
-
-        CheckRemove();
-        
-        UpdateMove();
+        UpdateProjectile();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public virtual void UpdateProjectile()
     {
-        if (!isMove)
-            return;
-
-        if (isReturnProjectile)
-        {
-            if (isReturn)
-            {
-                if (other.gameObject.layer == owner.gameObject.layer)
-                {
-                    Remove();
-                }
-            }
-
-            if (other.gameObject.layer == targetLayer)
-            {
-                other.GetComponent<IDamageable>().TakeDamage(damage, null);
-
-                transform.localScale = Vector3.one;
-                target = owner.transform;
-                isReturn = true;
-            }
-        }
-        else
-        {
-            if (other.gameObject.layer == targetLayer)
-            {
-                other.GetComponent<IDamageable>().TakeDamage(damage, null);
-                Remove();
-            }
-        }
     }
 
-    private void OnTriggerStay(Collider other)
+    public virtual void ResetProjectile()
     {
-        if (!isMove)
-            return;
-
-        if(isReturn)
-        {
-            if (other.gameObject.layer == owner.gameObject.layer)
-            {
-                Remove();
-            }
-        }
+        targetLayer = -1;
+        isMove = false;
     }
     #endregion Unity Methods
 
     #region Helper Methods
-    public void UpdateMove()
+    public virtual void UpdateMove()
     {
-        if (isReturnProjectile)
-            dir = (target.position - transform.position).normalized;
-        else
-            transform.forward = dir;
-
-        transform.position += dir * moveSpeed * Time.deltaTime;
     }
 
-    void UpdateRotate()
+    public virtual void Remove()
     {
-        transform.Rotate(Vector3.up * rotateAngle * Time.deltaTime);
-    }
-
-    void Remove()
-    {
-        targetLayer = -1;
-
-        isReturn = false;
-        isMove = false;
-
-        transform.localScale = Vector3.one;
-
         InGameSceneManager.instance.ProjectileManager.Remove(FilePath, gameObject);
     }
 
-    void CheckRemove()
+    public virtual void CheckRemove()
+    {
+    }
+
+    public void CheckTargetDead()
     {
         if (target.GetComponent<IDamageable>().IsDead)
             Remove();
+    }
 
+    public void CheckRemoveMask()
+    {
         Vector3 moveVector = dir * moveSpeed * Time.deltaTime;
         if (Physics.Linecast(transform.position, transform.position + moveVector, removeMask))
-        {
             Remove();
-        }
     }
     #endregion Helper Methods
 
     #region Other Methods
-    public void Fire(Actor owner, Transform target, LayerMask targetMask, bool isReturnProjectile = true)
+    public virtual void Fire(Actor owner, Transform target, LayerMask targetMask)
     {
         this.owner = owner;
         this.target = target;
+        this.targetMask = targetMask;
         targetLayer = (int)Mathf.Log(targetMask.value, 2);
-        this.isReturnProjectile = isReturnProjectile;
 
-        dir = (target.position - transform.position).normalized;
-
-        if (isReturnProjectile)
-            transform.localScale = Vector3.one * sizeScale;
+        if(target != null)
+            dir = (target.position - transform.position).normalized;
 
         isMove = true;
     }

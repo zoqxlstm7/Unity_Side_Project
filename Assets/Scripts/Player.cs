@@ -7,6 +7,7 @@ public class Player : Actor
 {
     #region Variables
     readonly string PROJECTILE_FILE_PATH = "Projectile/Projectile_HalfMoon";
+    readonly string PROJECTILE_SPLIT_FILE_PATH = "Projectile/Projectile_Split";
 
     [SerializeField] float moveSpeed = 5.0f;
     [SerializeField] float attackRange = 5.0f;
@@ -44,6 +45,23 @@ public class Player : Actor
 
         CheckAttaack();
         AroundProjectileRotate();
+
+        InputSplit();
+    }
+
+    void InputSplit()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            for (int i = 0; i < projectileCount; i++)
+            {
+                if (projectileCount != aroundProjectileList.Count)
+                    return;
+
+                Projectile projectile = InGameSceneManager.instance.ProjectileManager.Generate(PROJECTILE_SPLIT_FILE_PATH, fireTransform.position);
+                projectile.Fire(this, aroundProjectileList[i].transform, targetMask);
+            }
+        }
     }
 
     public override void OnDead()
@@ -134,8 +152,10 @@ public class Player : Actor
             if (calcProjectileCount <= 0)
             {
                 calcProjectileCount = projectileCount;
-                StartCoroutine(LaunchAroundProjectile());
                 startAttackTime = Time.time;
+
+                if(aroundProjectileList.Count > 0)
+                    StartCoroutine(LaunchAroundProjectile());
                 return;
             }
 

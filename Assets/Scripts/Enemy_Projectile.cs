@@ -27,7 +27,7 @@ public class Enemy_Projectile : Enemy
         if (Time.time - startAttackTime > attackSpeed)
         {
             Projectile projectile = InGameSceneManager.instance.ProjectileManager.Generate(PROJECTILE_FILE_PATH, fireTransform.position);
-            projectile.Fire(this, target, targetMask, false);
+            projectile.Fire(this, target, targetMask);
 
             startAttackTime = Time.time;
         }
