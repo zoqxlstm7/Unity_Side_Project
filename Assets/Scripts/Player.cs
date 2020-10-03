@@ -237,7 +237,7 @@ public class Player : Actor
     public void AddedAttackSpeed(float addedAttackSpeed)
     {
         this.addedAttackSpeed += addedAttackSpeed;
-        attackSpeed = originAttackSpeed / (1 + addedAttackSpeed);
+        attackSpeed = originAttackSpeed / (1 + this.addedAttackSpeed);
     }
 
     public void AddedProjectile(int addedProjectileCount)
