@@ -141,12 +141,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e4ba29029b3597408b68f6f55f3d72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 100000
   currentHealth: 0
   moveSpeed: 5
-  attackRange: 5
-  attackSpeed: 0.5
-  projectileCount: 3
+  attackRange: 10
+  attackSpeed: 0.2
+  projectileCount: 10
   calcProjectileCount: 0
   targetMask:
     serializedVersion: 2
@@ -259,7 +259,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5517446461518096187}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: FireTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,12 +370,12 @@ PrefabInstance:
     - target: {fileID: 9170646306659475472, guid: a4c26b56895e01041a1be626273f651a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.492
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9170646306659475472, guid: a4c26b56895e01041a1be626273f651a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.004
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9170646306659475472, guid: a4c26b56895e01041a1be626273f651a,
         type: 3}
