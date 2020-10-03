@@ -49,7 +49,7 @@ public class SpawnManager : MonoBehaviour
     IEnumerator FlashTileWithPingPong(Transform tileTransform)
     {
         float flashDelayTime = 3.0f;
-        float tileFlashTime = 2.0f;
+        float tileFlashTime = 4.0f;
 
         Material material = tileTransform.GetComponent<Renderer>().material;
         Color originColor = material.color;

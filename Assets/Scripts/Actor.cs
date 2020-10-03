@@ -8,7 +8,7 @@ public class Actor : MonoBehaviour, IDamageable
     [SerializeField] protected float maxHealth = 100.0f;
     [SerializeField] protected float currentHealth = 0.0f;
 
-    Color originColor;
+    protected Color originColor;
     #endregion Variables
 
     #region Unity Methods
@@ -45,7 +45,7 @@ public class Actor : MonoBehaviour, IDamageable
     #region IDamageable Interface
     public bool IsDead => currentHealth <= 0;
 
-    public void TakeDamage(float damage, GameObject hitEffectPrefab, Transform target = null)
+    public virtual void TakeDamage(float damage, GameObject hitEffectPrefab, Transform target = null)
     {
         if (IsDead)
             return;
@@ -67,13 +67,13 @@ public class Actor : MonoBehaviour, IDamageable
             OnDead();
         }
     }
-    
+
     IEnumerator ChangeHitColor()
     {
         Material material = GetComponentInChildren<Renderer>().material;
         material.color = Color.red;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2.0f);
         material.color = originColor;
     }
     #endregion IDamageable Interface

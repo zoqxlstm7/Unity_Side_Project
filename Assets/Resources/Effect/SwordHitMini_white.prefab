@@ -4751,6 +4751,7 @@ GameObject:
   - component: {fileID: 4457386425015312}
   - component: {fileID: 198311007249550740}
   - component: {fileID: 199471423851181392}
+  - component: {fileID: -2492883862077778430}
   m_Layer: 0
   m_Name: SwordHitMini_white
   m_TagString: Untagged
@@ -9482,6 +9483,19 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-2492883862077778430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493123572548342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e252579fb35d840489a2a8a2b68b8c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfdestruct_in: 0.85
 --- !u!1 &1741778894566216
 GameObject:
   m_ObjectHideFlags: 0
