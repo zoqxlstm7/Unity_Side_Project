@@ -15,6 +15,7 @@ public class Enemy : Actor
     [SerializeField] LayerMask unWalkableMask;
 
     [SerializeField] int score = 10;
+    [SerializeField] GameObject deadEffectPrefab = null;
 
     protected Transform target = null;
     protected Vector3 dir = Vector3.zero;
@@ -66,6 +67,8 @@ public class Enemy : Actor
         checkRemainEnemyHandler?.Invoke();
         InGameSceneManager.instance.score += score;
         PanelManager.GetPanel<InGameInfoPanel>().SetScore();
+
+        Instantiate(deadEffectPrefab, transform.position, Quaternion.identity);
 
         InGameSceneManager.instance.EnemyManager.Remove(FilePath, gameObject);
     }

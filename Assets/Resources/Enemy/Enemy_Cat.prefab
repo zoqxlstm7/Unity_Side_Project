@@ -150,6 +150,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   score: 10
+  deadEffectPrefab: {fileID: 157776, guid: 82bf03917e16d3d4cad30518cca28308, type: 3}
 --- !u!54 &4926764269426311004
 Rigidbody:
   m_ObjectHideFlags: 0

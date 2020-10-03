@@ -151,6 +151,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   score: 10
+  deadEffectPrefab: {fileID: 157776, guid: 82bf03917e16d3d4cad30518cca28308, type: 3}
   attackSpeed: 3
   fireTransform: {fileID: 8138870682042456191}
   targetMask:
