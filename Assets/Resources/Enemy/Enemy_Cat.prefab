@@ -142,8 +142,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 20
   currentHealth: 0
-  minMoveSpeed: 1
-  maxMoveSpeed: 5
+  minMoveSpeed: 2
+  maxMoveSpeed: 10
   minFindInterval: 3
   maxFindInterval: 10
   unWalkableMask:

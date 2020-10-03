@@ -26,6 +26,9 @@ public class Player : Actor
     float startAttackTime = 0.0f;
 
     List<Projectile> aroundProjectileList = new List<Projectile>();
+
+    public float addedAttackSpeed = 0.0f;
+    float originAttackSpeed = 0.0f;
     #endregion Variables
 
     #region Actor Methods
@@ -33,6 +36,7 @@ public class Player : Actor
     {
         base.InitializeActor();
 
+        originAttackSpeed = attackSpeed;
         calcProjectileCount = projectileCount;
     }
     public override void UpdateActor()
@@ -228,4 +232,25 @@ public class Player : Actor
         }
     }
     #endregion Helper Methods
+
+    #region Other Methods
+    public void AddedAttackSpeed(float addedAttackSpeed)
+    {
+        this.addedAttackSpeed += addedAttackSpeed;
+        attackSpeed = originAttackSpeed / (1 + addedAttackSpeed);
+    }
+
+    public void AddedProjectile(int addedProjectileCount)
+    {
+        projectileCount += addedProjectileCount;
+        calcProjectileCount = projectileCount;
+
+        SetProjectile();
+    }
+
+    public void AddedAttackRange(float addedAttackRange)
+    {
+        attackRange += addedAttackRange;
+    }
+    #endregion Other Methods
 }

@@ -17684,6 +17684,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db2ec8ad8a408140bee006be7900ee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemPrefabs:
+  - {fileID: 8294122286149815511, guid: e7c07a7071a012442a4c3b609afb5511, type: 3}
+  - {fileID: 5262983309081438646, guid: d42b0734715214148a0e41e4e5f500fd, type: 3}
+  - {fileID: 8294122286149815511, guid: 12d1fdce7358a4e44a9e8bc331636ebe, type: 3}
   initialSpawnCount: 5
   betweenSpawnTime: 1
 --- !u!1 &392363565
@@ -88879,21 +88883,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 778016515924789166, guid: 66253f80c8f2342438a8af5e1c304fd9,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 778016515924789166, guid: 66253f80c8f2342438a8af5e1c304fd9,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5517446459756353881, guid: 66253f80c8f2342438a8af5e1c304fd9,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5517446460792256064, guid: 66253f80c8f2342438a8af5e1c304fd9,
         type: 3}
       propertyPath: m_Name
@@ -88907,7 +88896,7 @@ PrefabInstance:
     - target: {fileID: 5517446460792256065, guid: 66253f80c8f2342438a8af5e1c304fd9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5517446460792256065, guid: 66253f80c8f2342438a8af5e1c304fd9,
         type: 3}
@@ -88952,41 +88941,6 @@ PrefabInstance:
     - target: {fileID: 5517446460792256065, guid: 66253f80c8f2342438a8af5e1c304fd9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5517446460792256095, guid: 66253f80c8f2342438a8af5e1c304fd9,
-        type: 3}
-      propertyPath: attackSpeed
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5517446460792256095, guid: 66253f80c8f2342438a8af5e1c304fd9,
-        type: 3}
-      propertyPath: attackRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5517446460792256095, guid: 66253f80c8f2342438a8af5e1c304fd9,
-        type: 3}
-      propertyPath: aroundDistance
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5517446460792256095, guid: 66253f80c8f2342438a8af5e1c304fd9,
-        type: 3}
-      propertyPath: maxHealth
-      value: 100000
-      objectReference: {fileID: 0}
-    - target: {fileID: 5517446460792256095, guid: 66253f80c8f2342438a8af5e1c304fd9,
-        type: 3}
-      propertyPath: projectileCount
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5517446461007850133, guid: 66253f80c8f2342438a8af5e1c304fd9,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5517446461518096186, guid: 66253f80c8f2342438a8af5e1c304fd9,
-        type: 3}
-      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

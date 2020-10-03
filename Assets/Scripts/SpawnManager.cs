@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     #region Variables
+    [SerializeField] GameObject[] itemPrefabs;
     [SerializeField] int initialSpawnCount = 5;
     [SerializeField] float betweenSpawnTime = 1.0f;
 
@@ -89,6 +90,15 @@ public class SpawnManager : MonoBehaviour
         {
             waveCount = ++InGameSceneManager.instance.waveCount;
             PanelManager.GetPanel<InGameInfoPanel>().SetWaveCount();
+
+            for (int i = 0; i < waveCount; i++)
+            {
+                List<Transform> tiles = InGameSceneManager.instance.MapGenerator.tileList;
+
+                int randomTileIndex = Random.Range(0, tiles.Count);
+                int randomItemIndex = Random.Range(0, itemPrefabs.Length);
+                Instantiate(itemPrefabs[randomItemIndex], tiles[randomTileIndex].position, Quaternion.identity);
+            }
 
             StartCoroutine(SpawnWithDelay());
         }

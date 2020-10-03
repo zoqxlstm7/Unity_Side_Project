@@ -143,9 +143,9 @@ MonoBehaviour:
   maxHealth: 100000
   currentHealth: 0
   moveSpeed: 5
-  attackRange: 10
-  attackSpeed: 0.2
-  projectileCount: 10
+  attackRange: 5
+  attackSpeed: 0.5
+  projectileCount: 3
   calcProjectileCount: 0
   targetMask:
     serializedVersion: 2
@@ -155,6 +155,7 @@ MonoBehaviour:
     m_Bits: 1024
   fireTransform: {fileID: 5517446461518096187}
   aroundDistance: 1.5
+  addedAttackSpeed: 0
 --- !u!136 &5517446460792256094
 CapsuleCollider:
   m_ObjectHideFlags: 0
