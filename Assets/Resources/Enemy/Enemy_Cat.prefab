@@ -143,7 +143,7 @@ MonoBehaviour:
   maxHealth: 20
   currentHealth: 0
   minMoveSpeed: 2
-  maxMoveSpeed: 10
+  maxMoveSpeed: 8
   minFindInterval: 3
   maxFindInterval: 10
   unWalkableMask:
