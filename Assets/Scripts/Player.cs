@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Timeline;
 using UnityEngine;
 
 public class Player : Actor
@@ -29,6 +28,8 @@ public class Player : Actor
 
     public float addedAttackSpeed = 0.0f;
     float originAttackSpeed = 0.0f;
+
+    public float AttackRange => attackRange;
     #endregion Variables
 
     #region Actor Methods
